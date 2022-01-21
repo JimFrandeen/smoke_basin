@@ -14,7 +14,7 @@
 * @param    p_file_size_ret points to int where size of filee is returned.
 * @retval   returns pointer to buffer that contains input string
 */
-char* read_input(char* file_name, int *p_file_size_ret) {
+unsigned char* read_input(char* file_name, int *p_file_size_ret) {
     FILE* input_file_handle = fopen(file_name, "rb");
     if (input_file_handle == NULL) {
         fprintf(stderr, "Error reading input_buffer %s: %s\n", file_name, strerror(errno));
@@ -151,7 +151,7 @@ int find_basins(unsigned char* height_map, int num_rows, int num_cols) {
 #define INDEX(row, col) ((row) * (num_cols + 1) + col)
 #endif
     int basin_value;
-    int best_basin_values[4];
+    int best_basin_values[4] = { 0, 0, 0, 0 };
     int num_best_basin_values = 0;
     for (int row = 0; row < num_rows; row++) {
         for (int col = 0; col < num_cols; col++) {
