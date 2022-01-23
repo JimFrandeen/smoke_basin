@@ -27,7 +27,7 @@ unsigned char* read_input(char* file_name, int *p_file_size_ret) {
 
     // Allocate a buffer to read in the file.
     // Allocate one extra byte so we can store 0 at the end.
-    char* input_buffer = (char*)malloc(file_size) + 1;
+    unsigned char* input_buffer = (char*)malloc(file_size + 1);
     if (input_buffer == NULL) {
         printf("Unable to allocate input_buffer buffer %d bytes\n", file_size);
         exit(-1);
@@ -196,6 +196,7 @@ int main(int argc, char* argv[]) {
     int risk_level = find_low_points(height_map, num_rows, num_cols);
     printf("risk level of example.txt: %d\n", risk_level);
     find_basins(height_map, num_rows, num_cols);
+    free(height_map);
 
     // Read the puzzle 
     height_map = read_input("puzzle_input.txt", &buffer_size);
@@ -203,5 +204,6 @@ int main(int argc, char* argv[]) {
     risk_level = find_low_points(height_map, num_rows, num_cols);
     printf("risk level of puzzle_input.txt: %d\n", risk_level);
     find_basins(height_map, num_rows, num_cols);
+    free(height_map);
     return 0;
 }
